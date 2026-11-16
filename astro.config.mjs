@@ -1,27 +1,14 @@
-// @ts-check
+// astro.config.mjs
 import { defineConfig } from 'astro/config';
-import node from '@astrojs/node';
-import tailwindcss from '@tailwindcss/vite';
 import react from '@astrojs/react';
-import keystatic from '@keystatic/astro';
+import tailwindcss from '@tailwindcss/vite';
+import vercel from '@astrojs/vercel'; // <-- Ganti dari node ke vercel
 
-// https://astro.build/config
 export default defineConfig({
-  adapter: node({
-    mode: 'standalone'
-  }),
-
-  i18n: {
-    defaultLocale: 'en',
-    locales: ['en', 'id'],
-    routing: {
-      prefixDefaultLocale: false
-    }
-  },
-
+  output: 'server',
+  adapter: vercel(), // <-- Gunakan vercel()
+  integrations: [react()],
   vite: {
     plugins: [tailwindcss()]
-  },
-
-  integrations: [react(), keystatic()]
+  }
 });
