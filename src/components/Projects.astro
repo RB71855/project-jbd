@@ -1,0 +1,63 @@
+---
+import { getCollection } from 'astro:content';
+import { useTranslations } from '../i18n/translations';
+
+interface Props {
+  lang?: 'en' | 'id';
+}
+
+const { lang = 'en' } = Astro.props;
+const t = useTranslations(lang);
+
+// Ambil data proyek dari Content Collection Keystatic
+const projects = await getCollection('projects');
+---
+
+<section id="projects" class="py-20 lg:py-28 bg-white border-b border-[#E2E8F0]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Header -->
+    <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E0F2FE] border border-[#0284C7]/20 text-[#0284C7] text-xs font-bold uppercase tracking-wider mb-4">
+        {t('proj.badge')}
+      </div>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-[#0A192F] tracking-tight mb-4">
+        {t('proj.title')}
+      </h2>
+      <p class="text-[#475569] text-base sm:text-lg leading-relaxed">
+        {t('proj.desc')}
+      </p>
+    </div>
+
+    <!-- Asymmetric Bento Grid Dinamis -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" data-aos="fade-up">
+      {projects.map((project) => {
+        const title = lang === 'id' ? project.data.titleId : project.data.titleEn;
+        const sector = lang === 'id' ? project.data.sectorId : project.data.sectorEn;
+        const desc = lang === 'id' ? project.data.descId : project.data.descEn;
+        const isFeatured = project.data.featured;
+
+        return (
+          <div class={`card-clean overflow-hidden group relative bg-[#0A192F] ${isFeatured ? 'md:col-span-2' : ''}`}>
+            <a href={project.data.image} class="luminous block relative h-72 sm:h-96 overflow-hidden">
+              <img src={project.data.image} alt={title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90"/>
+              <div class="absolute inset-0 bg-gradient-to-t from-[#0A192F] via-[#0A192F]/40 to-transparent"></div>
+              <div class={`absolute bottom-0 left-0 right-0 p-6 ${isFeatured ? 'sm:p-8' : ''}`}>
+                <span class="px-3 py-1 bg-[#0284C7] text-white text-xs font-bold rounded-lg uppercase tracking-wider mb-3 inline-block">
+                  {sector}
+                </span>
+                <h3 class={`${isFeatured ? 'text-2xl sm:text-3xl' : 'text-xl'} font-extrabold text-white mb-2 font-['Plus_Jakarta_Sans']`}>
+                  {title}
+                </h3>
+                <p class={`text-sm text-slate-300 ${isFeatured ? 'max-w-xl' : ''}`}>
+                  {desc}
+                </p>
+              </div>
+            </a>
+          </div>
+        );
+      })}
+    </div>
+
+  </div>
+</section>

@@ -1,0 +1,167 @@
+---
+import { getEntry } from 'astro:content';
+import { useTranslations } from '../i18n/translations';
+
+interface Props {
+  lang?: 'en' | 'id';
+}
+
+const { lang = 'en' } = Astro.props;
+const t = useTranslations(lang);
+
+// Ambil data singleton settings dari Keystatic CMS dengan fallback aman
+const settingsEntry = await getEntry('settings', 'company');
+const companySettings = settingsEntry ? settingsEntry.data : {
+  address: "18 Office Park, Lt. 25, Jl. TB Simatupang No. Kav 18 RT. 02/RW. 01, Kebagusan, Ps Minggu, Jakarta Selatan, DKI Jakarta",
+  phone: "(021) 50633500 / (021) 27806577",
+  whatsapp: "+62 812 9610 9466"
+};
+---
+
+<section id="contact" class="py-20 lg:py-28 bg-[#F8FAFC] border-b border-[#E2E8F0]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+      
+      <!-- Kiri: Deep Navy Info Panel (5 Kolom) -->
+      <div class="lg:col-span-5 bg-[#0A192F] text-white p-8 sm:p-12 rounded-2xl flex flex-col justify-between shadow-xl" data-aos="fade-right">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0284C7]/20 text-[#0284C7] text-xs font-bold uppercase tracking-wider mb-6 border border-[#0284C7]/30">
+            {t('contact.badge')}
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-4 font-['Plus_Jakarta_Sans']">
+            {t('contact.title')}
+          </h2>
+          <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-8">
+            {t('contact.desc')}
+          </p>
+
+          <!-- Contact Details List Dinamis -->
+          <div class="space-y-6">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-[#0284C7] shrink-0 font-bold">
+                📍
+              </div>
+              <div>
+                <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">{t('contact.address.label')}</h4>
+                <p class="text-sm text-white leading-relaxed">
+                  {companySettings.address}
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-[#0284C7] shrink-0 font-bold">
+                📞
+              </div>
+              <div>
+                <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">{t('contact.phone.label')}</h4>
+                <p class="text-sm text-white">{companySettings.phone}</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-[#0284C7] shrink-0 font-bold">
+                💬
+              </div>
+              <div>
+                <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">{t('contact.wa.label')}</h4>
+                <p class="text-sm text-white">{companySettings.whatsapp}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-12 pt-8 border-t border-white/10">
+          <p class="text-xs text-slate-400">{t('contact.resp')}</p>
+        </div>
+      </div>
+
+      <!-- Kanan: Modern White Form (7 Kolom) -->
+      <div class="lg:col-span-7 bg-white p-8 sm:p-12 rounded-2xl border border-[#E2E8F0] shadow-sm flex flex-col justify-between" data-aos="fade-left">
+        <div>
+          <h3 class="text-2xl font-extrabold text-[#0A192F] mb-2 font-['Plus_Jakarta_Sans']">{t('contact.form.title')}</h3>
+          <p class="text-sm text-[#475569] mb-8">{t('contact.form.sub')}</p>
+
+          <form id="whatsapp-form" class="space-y-5" data-whatsapp={companySettings.whatsapp}>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <label class="block text-xs font-bold text-[#0A192F] uppercase tracking-wider mb-2">{t('contact.form.name')}</label>
+                <input 
+                  type="text" 
+                  id="wa-name" 
+                  required 
+                  placeholder={t('contact.form.name.ph')} 
+                  class="w-full bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl px-4 py-3 text-sm text-[#0A192F] focus:outline-none focus:border-[#0284C7] transition-all"
+                />
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-[#0A192F] uppercase tracking-wider mb-2">{t('contact.form.company')}</label>
+                <input 
+                  type="text" 
+                  id="wa-company" 
+                  required 
+                  placeholder={t('contact.form.company.ph')} 
+                  class="w-full bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl px-4 py-3 text-sm text-[#0A192F] focus:outline-none focus:border-[#0284C7] transition-all"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-[#0A192F] uppercase tracking-wider mb-2">{t('contact.form.subject')}</label>
+              <input 
+                type="text" 
+                id="contact-subject" 
+                required 
+                placeholder={t('contact.form.subject.ph')} 
+                class="w-full bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl px-4 py-3 text-sm text-[#0A192F] focus:outline-none focus:border-[#0284C7] transition-all"
+              />
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-[#0A192F] uppercase tracking-wider mb-2">{t('contact.form.msg')}</label>
+              <textarea 
+                id="wa-message" 
+                rows="4" 
+                required 
+                placeholder={t('contact.form.msg.ph')} 
+                class="w-full bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl px-4 py-3 text-sm text-[#0A192F] focus:outline-none focus:border-[#0284C7] transition-all"
+              ></textarea>
+            </div>
+
+            <button type="submit" class="btn-primary w-full py-4 text-base shadow-lg shadow-[#0F4C81]/20 flex items-center justify-center gap-2">
+              <span>{t('contact.form.btn')}</span>
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('whatsapp-form');
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('wa-name').value.trim();
+        const company = document.getElementById('wa-company').value.trim();
+        const subject = document.getElementById('contact-subject').value.trim();
+        const message = document.getElementById('wa-message').value.trim();
+
+        // Ambil nomor WhatsApp dinamis dari atribut form, bersihkan karakter non-digit
+        const rawWa = form.getAttribute('data-whatsapp') || "6281296109466";
+        const phone = rawWa.replace(/\D/g, '');
+
+        const text = `Halo PT. Joyo Bada Perkasa,\n\nNama: ${name}\nPerusahaan: ${company}\nPerihal: ${subject}\n\nPesan:\n${message}`;
+        const encoded = encodeURIComponent(text);
+
+        window.open(`https://wa.me/${phone}?text=${encoded}`, '_blank');
+      });
+    }
+  });
+</script>

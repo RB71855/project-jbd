@@ -1,0 +1,82 @@
+---
+import '../styles/style.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  lang?: 'en' | 'id';
+}
+
+const { 
+  title = "PT. Joyo Bada Perkasa | Water & Industrial Chemical Specialist", 
+  description = "PT. Joyo Bada Perkasa provides complete water treatment solutions, equipment, spare parts, and speciality chemicals for industrial applications across various sectors.",
+  lang = 'en'
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang={lang} class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    
+    <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- AOS (Animate On Scroll) CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+    <!-- Luminous Lightbox CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/luminous-lightbox/2.3.2/luminous-basic.min.css" />
+  </head>
+  <body class="bg-[#F8FAFC] text-[#0A192F] font-['Inter',sans-serif] antialiased selection:bg-[#0284C7] selection:text-white">
+    
+    <slot />
+
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" is:inline></script>
+    <!-- Luminous Lightbox JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/luminous-lightbox/2.3.2/Luminous.min.js" is:inline></script>
+    
+  <script is:inline>
+      document.addEventListener('DOMContentLoaded', () => {
+        // Init AOS Animation
+        if (typeof AOS !== 'undefined') {
+          AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50
+          });
+        }
+
+        // Init Luminous Lightbox for Project gallery with close fix
+        if (typeof Luminous !== 'undefined') {
+          const luminousTrigger = document.querySelectorAll('.luminous');
+          if (luminousTrigger.length > 0) {
+            new Luminous(luminousTrigger, {
+              // Menambahkan handler saat lightbox terbuka
+              onOpen: function() {
+                const lightboxEl = document.querySelector('.lum-lightbox');
+                if (lightboxEl) {
+                  // Memastikan klik pada area luar/blank space menutup lightbox
+                  lightboxEl.addEventListener('click', (e) => {
+                    // Jika yang diklik adalah background/blank space (bukan gambar di dalamnya)
+                    if (e.target === lightboxEl || e.target.classList.contains('lum-lightbox-inner')) {
+                      if (this && typeof this.close === 'function') {
+                        this.close();
+                      }
+                    }
+                  });
+                }
+              }
+            });
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

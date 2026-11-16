@@ -1,0 +1,131 @@
+---
+import { useTranslations } from '../i18n/translations';
+
+interface Props {
+  lang?: 'en' | 'id';
+}
+
+const { lang = 'en' } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section class="relative pt-12 pb-20 lg:pt-20 lg:pb-28 overflow-hidden bg-gradient-to-b from-white to-[#F8FAFC] border-b border-[#E2E8F0]">
+  <!-- Background Fine Grid Pattern -->
+  <div class="absolute inset-0 opacity-[0.4] pointer-events-none" style="background-image: radial-gradient(#0284C7 0.75px, transparent 0.75px); background-size: 24px 24px;"></div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+      
+      <!-- Kiri: Typography & CTAs (7 Kolom) -->
+      <div class="lg:col-span-7" data-aos="fade-right">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E0F2FE] border border-[#0284C7]/20 text-[#0284C7] text-xs font-bold uppercase tracking-wider mb-6 shadow-sm">
+          <span class="w-2 h-2 rounded-full bg-[#0284C7] animate-pulse"></span>
+          {t('hero.badge')}
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#0A192F] tracking-tight leading-[1.15] mb-6">
+          {lang === 'en' ? 'Trusted Chemical Solutions, ' : 'Solusi Kimia Terpercaya, '}
+          <span class="text-[#0F4C81]">{lang === 'en' ? 'Equipment,' : 'Peralatan,'}</span>
+          {lang === 'en' ? ' and Spare-parts for All Industries' : ' dan Suku Cadang untuk Segala Industri'}
+        </h1>
+
+        <p class="text-lg text-[#475569] leading-relaxed mb-8 max-w-2xl font-normal">
+          {t('hero.desc')}
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+          <a href="#products" class="btn-primary text-base py-3.5 px-8 text-center shadow-lg shadow-[#0F4C81]/20">
+            {t('hero.btn.explore')}
+          </a>
+          <a href="#contact" class="btn-outline text-base py-3.5 px-8 text-center">
+            {t('hero.btn.consult')}
+          </a>
+        </div>
+
+        <!-- Mini Trust Metric -->
+        <div class="mt-10 pt-8 border-t border-[#E2E8F0] grid grid-cols-3 gap-6">
+          <div>
+            <div class="text-2xl font-extrabold font-['Plus_Jakarta_Sans'] text-[#0A192F]">100%</div>
+            <div class="text-xs font-medium text-[#64748B] mt-0.5">{t('hero.stat.original')}</div>
+          </div>
+          <div>
+            <div class="text-2xl font-extrabold font-['Plus_Jakarta_Sans'] text-[#0A192F]">9+</div>
+            <div class="text-xs font-medium text-[#64748B] mt-0.5">{t('hero.stat.sectors')}</div>
+          </div>
+          <div>
+            <div class="text-2xl font-extrabold font-['Plus_Jakarta_Sans'] text-[#0A192F]">Top Tier</div>
+            <div class="text-xs font-medium text-[#64748B] mt-0.5">{t('hero.stat.principals')}</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Kanan: Asymmetric Visual Showcase (5 Kolom) -->
+      <div class="lg:col-span-5 relative" data-aos="fade-left">
+        <div class="relative mx-auto max-w-md lg:max-w-none">
+          
+          <!-- Main Architectural Frame -->
+          <div class="card-clean p-3 bg-white shadow-2xl relative z-10 rounded-2xl">
+            <img 
+              src="/images/project-1.jpg" 
+              alt="Industrial Water Treatment Facility" 
+              class="w-full h-[320px] object-cover rounded-xl"
+            />
+          </div>
+
+          <!-- Secondary Overlapping Image/Graphic -->
+          <div class="absolute -bottom-6 -left-6 z-20 w-48 bg-white card-clean p-2 shadow-xl rounded-xl hidden sm:block border border-[#E2E8F0]">
+            <img 
+              src="/images/water.png" 
+              alt="Water Treatment Specialist" 
+              class="w-full h-28 object-cover rounded-lg"
+            />
+            <div class="p-2 text-center">
+              <span class="text-[11px] font-bold text-[#0A192F] block">{t('hero.visual.title')}</span>
+            </div>
+          </div>
+
+          <!-- Floating Trust Badge Card -->
+          <div class="absolute -top-6 -right-6 z-20 bg-[#0A192F] text-white p-4 rounded-xl shadow-2xl border border-white/10 hidden sm:block">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-lg bg-[#0284C7]/20 flex items-center justify-center text-[#0284C7] font-bold">
+                ✓
+              </div>
+              <div>
+                <div class="text-xs font-bold text-white">{t('hero.visual.badge')}</div>
+                <div class="text-[10px] text-slate-400">{t('hero.visual.sub')}</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Principal Brands Strip -->
+    <div class="mt-20 pt-10 border-t border-[#E2E8F0]" data-aos="fade-up">
+      <p class="text-center text-xs font-bold text-[#64748B] uppercase tracking-widest mb-8">
+        {t('hero.principals.label')}
+      </p>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 items-center">
+        <div class="card-clean py-4 px-6 text-center font-['Plus_Jakarta_Sans'] font-bold text-[#0A192F] text-sm tracking-tight bg-white/60">
+          DuPont™ AmberLite
+        </div>
+        <div class="card-clean py-4 px-6 text-center font-['Plus_Jakarta_Sans'] font-bold text-[#0A192F] text-sm tracking-tight bg-white/60">
+          Lanxess Lewatit®
+        </div>
+        <div class="card-clean py-4 px-6 text-center font-['Plus_Jakarta_Sans'] font-bold text-[#0A192F] text-sm tracking-tight bg-white/60">
+          Toray
+        </div>
+        <div class="card-clean py-4 px-6 text-center font-['Plus_Jakarta_Sans'] font-bold text-[#0A192F] text-sm tracking-tight bg-white/60">
+          Hydranautics
+        </div>
+        <div class="card-clean py-4 px-6 text-center font-['Plus_Jakarta_Sans'] font-bold text-[#0A192F] text-sm tracking-tight bg-white/60 col-span-2 sm:col-span-1">
+          Veolia
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
