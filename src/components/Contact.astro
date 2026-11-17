@@ -14,7 +14,7 @@ const settingsEntry = await getEntry('settings', 'company');
 const companySettings = settingsEntry ? settingsEntry.data : {
   address: "18 Office Park, Lt. 25, Jl. TB Simatupang No. Kav 18 RT. 02/RW. 01, Kebagusan, Ps Minggu, Jakarta Selatan, DKI Jakarta",
   phone: "(021) 50633500 / (021) 27806577",
-  whatsapp: "+62 812 9610 9466"
+  whatsapp: "+6281298216079"
 };
 ---
 
@@ -154,7 +154,7 @@ const companySettings = settingsEntry ? settingsEntry.data : {
         const message = document.getElementById('wa-message').value.trim();
 
         // Ambil nomor WhatsApp dinamis dari atribut form, bersihkan karakter non-digit
-        const rawWa = form.getAttribute('data-whatsapp') || "6281296109466";
+        const rawWa = form.getAttribute('data-whatsapp') || "6281298216079";
         const phone = rawWa.replace(/\D/g, '');
 
         const text = `Halo PT. Joyo Bada Perkasa,\n\nNama: ${name}\nPerusahaan: ${company}\nPerihal: ${subject}\n\nPesan:\n${message}`;
